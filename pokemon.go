@@ -5,12 +5,14 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
+	"gorm.io/gorm"
 )
 
-type BattleType string
-
 type Pokemon struct {
-	Name string
+	gorm.Model
+	Name  string `json:"name"`
+	Type  string `json:"type"`
+	Moves string `json:"moves"`
 }
 
 func GetPokemon(w http.ResponseWriter, r *http.Request) {

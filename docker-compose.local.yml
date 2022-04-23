@@ -1,7 +1,22 @@
 version: "3.8"
 
 services:
-  db: 
+  api:
+    build: .
+    container_name: "rest-api"
+    environment:
+      DB_USERNAME: "postgres"
+      DB_PASSWORD: "postgres"
+      DB_HOST: "fullstack-postgres"
+      DB_PORT: "5432"
+    ports:
+      - 8080:8080
+    depends_on:
+      - fullstack-postgres
+    networks:
+      - fullstack
+      
+  fullstack-postgres: 
     image: postgres:12.2-alpine
     container_name: "db-postgres"
     ports:
@@ -10,30 +25,15 @@ services:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+      - DATABASE_HOST=fullstack-postgres
     networks:
-      - pokenet
+      - fullstack
     volumes:
       - database_postgres:/var/lib/postgresql/data
-  
-  api:
-    build: .
-    container_name: "rest-api"
-    environment:
-      DB_USERNAME: "postgres"
-      DB_PASSWORD: "postgres"
-      DB: "postgres"
-      DB_HOST: "db"
-      DB_PORT: "5432"
-    ports:
-      - 80:80
-    depends_on:
-      - db
-    networks:
-      - pokenet
 
 volumes:
   database_postgres:
 
 networks:
-  pokenet:
+  fullstack:
     driver: bridge
