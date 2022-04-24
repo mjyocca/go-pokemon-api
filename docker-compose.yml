@@ -2,7 +2,13 @@ version: "3.8"
 
 services:
   api:
-    build: .
+    build:
+      dockerfile: Dockerfile
+      context: .
+      target: dev
+    stdin_open: true
+    volumes:
+      - .:/opt/app/api
     container_name: "rest-api"
     environment:
       DB_USERNAME: "postgres"

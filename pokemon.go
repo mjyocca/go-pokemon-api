@@ -10,7 +10,7 @@ import (
 
 type Pokemon struct {
 	gorm.Model
-	Name  string `json:"name"`
+	Name  string `json:"name" gorm:"primaryKey"`
 	Type  string `json:"type"`
 	Moves string `json:"moves"`
 }

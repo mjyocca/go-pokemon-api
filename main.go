@@ -40,7 +40,7 @@ func handleRequests() *mux.Router {
 		fmt.Fprintf(w, "Welcome to my website!")
 	})
 	r.HandleFunc("/pokemon", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "All 150 pokemon")
+		fmt.Fprintf(w, "All 150 pokemons!")
 	})
 	r.HandleFunc("/pokemon/{name}", GetPokemon).Methods("GET")
 	r.HandleFunc("/pokemon/{name}", UpdatePokemon).Methods("PUT")
